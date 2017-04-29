@@ -42,7 +42,6 @@ with open('data/circo_gps.csv', 'r') as csvfile:
 
 for g in groupes:
     if 'location' in g and 'country_code' in g['location'] and g['location']['country_code'] and 'coordinates' in g:
-        print (g['coordinates'])
         nearest_circo = ''
         nearest_distance = 25000
         for emplacement in emplacements:
