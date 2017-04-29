@@ -7,3 +7,4 @@ pytz==2016.10
 six==1.10.0
 dicttoxml
 geopy
+unidecode
