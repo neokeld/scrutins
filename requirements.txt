@@ -8,3 +8,5 @@ six==1.10.0
 dicttoxml
 geopy
 unidecode
+jinja2
+weasyprint
