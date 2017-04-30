@@ -75,17 +75,6 @@ df_pres_2012 = pd.read_csv(
     usecols=use_columns
 )
 
-print("donnees legislatives 2012")
-df_legi_2012 = pd.read_csv(
-    'data/legi_2012.csv',
-    sep=';',
-    skiprows=18,
-    names=['tour', 'departement', 'commune_code', 'commune_nom', 'circo', 'canton', 'bureau', 'inscrits', 'votants', 'exprimes',
-           'numero_candidat', 'nom_candidat', 'prenom_candidat', 'choix', 'voix'],
-    dtype={'departement': str, 'choix': str, 'commune_code': str, 'bureau': str},
-    usecols=use_columns
-)
-
 print("donnees presidentielles 2017")
 df_pres_2017 = pd.read_csv(
     'data/pres_2017.csv',
@@ -99,16 +88,10 @@ df_pres_2017 = pd.read_csv(
 )
 
 stats_2012, choix_2012 = calculer_totaux(df_pres_2012)
-stats_legi_2012, choix_legi_2012 = calculer_totaux(df_legi_2012)
 stats_2017, choix_2017 = calculer_totaux(df_pres_2017)
 
 print("statistiques presidentielles 2012")
 scores_pres_2012 = calculer_scores(stats_2012, choix_2012, 1)
-
-print("statistiques legislatives 2012")
-scores_legi1_2012 = calculer_scores(stats_legi_2012, choix_legi_2012, 1)
-
-scores_legi2_2012 = calculer_scores(stats_legi_2012, choix_legi_2012, 2)
 
 print("statistiques presidentielles 2017")
 scores_pres_2017 = calculer_scores(stats_2017, choix_2017, 1)
@@ -116,8 +99,6 @@ scores_pres_2017 = calculer_scores(stats_2017, choix_2017, 1)
 print("fusion des resultats")
 df_circonscriptions = pd.concat([
     scores_pres_2012.rename(columns=lambda c: c + '\nPRES\n2012'),
-    scores_legi1_2012.rename(columns=lambda c: c + '\nLEGI1\n2012'),
-    scores_legi2_2012.rename(columns=lambda c: c + '\nLEGI2\n2012'),
     scores_pres_2017.rename(columns=lambda c: c + '\nPRES\n2017')
 ], axis=1)
 
