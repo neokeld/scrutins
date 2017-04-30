@@ -45,6 +45,8 @@ Le rapport est créé dans ```output/rapport_candidats.pdf```
 Un grand merci à tous ceux qui ont participé à ce projet :
 
 [lucasgautheron](https://github.com/lucasgautheron)
+
 [aktiur](https://github.com/aktiur)
+
 [neokeld](https://github.com/neokeld)
 
