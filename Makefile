@@ -26,7 +26,7 @@ all: download circonscriptions
 #maps: output/non_2005.png output/hollande.png
 
 circonscriptions: circos.xml groupes.xml
-	python get_candidats_par_circo.py && \
+	python get_candidats_par_bureau.py && \
 	saxonb-xslt -s:circos.xml -xsl:processors/circonscriptions.xsl -o:circonscriptions/document.tex -ext:on && \
 	cd circonscriptions && (pdflatex --shell-escape -interaction=nonstopmode document.tex || true) && \
 	(pdflatex --shell-escape -interaction=nonstopmode document.tex || true)
