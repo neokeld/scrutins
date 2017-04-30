@@ -34,9 +34,11 @@ make maps
 
 Pour générer le rapport des résultats des candidats par circonscriptions sur les années 2012 et 2017 aux législatives et présidentielles :
 
+```
 python3 ./get_candidats_par_circo.py
+```
 
-Le rapport est créé dans output/rapport_candidats.pdf
+Le rapport est créé dans ```output/rapport_candidats.pdf```
 
 # Contributeurs
 
