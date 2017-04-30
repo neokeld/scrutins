@@ -32,8 +32,6 @@ def calculer_totaux(df):
             'votants': 'first',
             'exprimes': 'first',
         })
-            # puis on somme par commune
-            #.groupby(level=stats_index).sum()
             # puis on dépile le numéro de tour et on le met en premier index de colonne
             .unstack(['tour']).swaplevel(0, 1, axis=1).sortlevel(axis=1)
             # enfin, on remplace les valeurs manquantes avec des 0 (pour les élections sans second tour)
@@ -126,7 +124,7 @@ df_circonscriptions = pd.concat([
 pd.options.display.float_format = '{:.2f}'.format
 
 number_of_pdfs = 0
-pdf_output_file_base="output/rapport_candidats_par_bureau"
+output_file_base="output/rapport_candidats_par_bureau"
 env = Environment(loader=FileSystemLoader('.'))
 template = env.get_template("candidats_report.html")
 groups = df_circonscriptions.groupby(level=['departement', 'circo'])
@@ -136,8 +134,9 @@ for group_key, group_content in groups:
     template_vars = {"title" : "Candidats par bureau",
                  "candidats_table": group_content.to_html()}
     html_out = template.render(template_vars)
-    pdf_output_file_name=pdf_output_file_base+('-'.join(map(str,group_key)))+".pdf"
+    pdf_output_file_name=output_file_base+('-'.join(map(str,group_key)))+".pdf"
     HTML(string=html_out).write_pdf(pdf_output_file_name)
-    #df_circonscriptions.drop(df_circonscriptions.head(80).index, inplace=True)
-    print("Le rapport a ete cree dans "+pdf_output_file_name)
-
+    print("Le rapport pdf a ete cree dans "+pdf_output_file_name)
+    csv_output_file_name=output_file_base+('-'.join(map(str,group_key)))+"csv"
+    group_content.to_csv(csv_output_file_name, sep=';')
+    print("La version csv a ete cree dans "+csv_output_file_name)
