@@ -65,6 +65,7 @@ use_columns = [
     'choix', 'voix'
 ]
 
+print("donnees presidentielles 2012")
 df_pres_2012 = pd.read_csv(
     'data/pres_2012.csv',
     sep=';',
@@ -75,7 +76,7 @@ df_pres_2012 = pd.read_csv(
     usecols=use_columns
 )
 
-
+print("donnees legislatives 2012")
 df_legi_2012 = pd.read_csv(
     'data/legi_2012.csv',
     sep=';',
@@ -86,6 +87,7 @@ df_legi_2012 = pd.read_csv(
     usecols=use_columns
 )
 
+print("donnees presidentielles 2017")
 df_pres_2017 = pd.read_csv(
     'data/pres_2017.csv',
     sep=';',
@@ -101,10 +103,10 @@ stats_2012, choix_2012 = calculer_totaux(df_pres_2012)
 stats_legi_2012, choix_legi_2012 = calculer_totaux(df_legi_2012)
 stats_2017, choix_2017 = calculer_totaux(df_pres_2017)
 
-print("statistiques présidentielles 2012")
+print("statistiques presidentielles 2012")
 scores_pres_2012 = calculer_scores(stats_2012, choix_2012, 1)
 
-print("statistiques législatives 2012")
+print("statistiques legislatives 2012")
 scores_legi1_2012 = calculer_scores(stats_legi_2012, choix_legi_2012, 1)
 
 scores_legi2_2012 = calculer_scores(stats_legi_2012, choix_legi_2012, 2)
@@ -125,11 +127,11 @@ pd.options.display.float_format = '{:.2f}'.format
 print("generation du rapport pdf")
 env = Environment(loader=FileSystemLoader('.'))
 template = env.get_template("candidats_report.html")
-template_vars = {"title" : "Candidats par bureaux de vote",
+template_vars = {"title" : "Candidats par circonscription",
                  "candidats_table": df_circonscriptions.to_html()}
 html_out = template.render(template_vars)
 pdf_output_file="output/rapport_candidats.pdf"
 HTML(string=html_out).write_pdf(pdf_output_file)
 
-print("Le rapport a été créé dans "+pdf_output_file)
+print("Le rapport a ete cree dans "+pdf_output_file)
 
